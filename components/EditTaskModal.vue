@@ -56,15 +56,12 @@ const emit = defineEmits(['close'])
 
 const todoStore = useTodoStore()
 
-// Create a reactive copy of the task for editing
 const editableTask = reactive({ ...props.task })
 
-// Function to close the modal
 function closeModal() {
   emit('close')
 }
 
-// Function to update the task
 async function updateTask() {
   try {
     await todoStore.updateTarea(editableTask._id, editableTask.titulo, editableTask.estado, editableTask.descripcion)

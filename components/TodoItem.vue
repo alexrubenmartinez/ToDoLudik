@@ -29,7 +29,6 @@
       </button>
     </div>
 
-    <!-- Modal -->
     <EditTaskModal v-if="isEditModalVisible" :task="editableTask" :isVisible="isEditModalVisible" @close="closeEditModal" />
   </div>
 </template>
@@ -45,11 +44,9 @@ const props = defineProps({
   tarea: Object,
 })
 
-// Estado del modal y la tarea editable
 const isEditModalVisible = ref(false)
 const editableTask = reactive({ ...props.tarea })
 
-// Lógica para eliminar tarea
 const deleteTarea = async (id) => {
   try {
     await todoStore.deleteTarea(id)
@@ -66,9 +63,8 @@ const confirmDelete = (id) => {
   }
 }
 
-// Abrir y cerrar el modal
 const openEditModal = () => {
-  Object.assign(editableTask, props.tarea) // Asegura que la tarea sea actual
+  Object.assign(editableTask, props.tarea)
   isEditModalVisible.value = true
 }
 

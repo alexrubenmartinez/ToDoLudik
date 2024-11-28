@@ -17,10 +17,10 @@ const todoStore = useTodoStore()
 
 const addTarea = async () => {
   if (titulo.value.trim()) {
-    await todoStore.addTarea(titulo.value, descripcion.value) // Await the addTarea function to ensure task is added first
+    await todoStore.addTarea(titulo.value, descripcion.value)
     titulo.value = ''
     descripcion.value = ''
-    await todoStore.fetchTareas() // Refresh the task list after adding the new task
+    await todoStore.fetchTareas()
   }
 }
 </script>
