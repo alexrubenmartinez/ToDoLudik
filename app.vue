@@ -1,5 +1,8 @@
 <template>
-  <div>
-    <p class="text-center text-2xl font-bold">ToDo App</p>
-  </div>
+  <NuxtPage />
+  <!--   <div class="flex flex-col items-center justify-center h-screen">
+    
+    <AddTodoForm />
+    <TodoList />
+  </div> -->
 </template>
