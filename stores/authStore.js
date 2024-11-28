@@ -1,7 +1,6 @@
 // stores/authStore.js
 import { defineStore } from 'pinia'
 
-require('dotenv').config()
 let LOGIN_URL = process.env.LOGIN_URL
 let REGISTER_URL = process.env.REGISTER_URL
 
@@ -26,7 +25,7 @@ export const useAuthStore = defineStore('auth', {
 
     async register(nombre, email, password) {
       try {
-        const response = await fetch(REGISTER_URL, {
+        const response = await fetch('https://todoludikback.onrender.com/usuario/crearUsuario', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -50,7 +49,7 @@ export const useAuthStore = defineStore('auth', {
 
     async login(email, password, router) {
       try {
-        const response = await fetch(LOGIN_URL, {
+        const response = await fetch('https://todoludikback.onrender.com/usuario/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

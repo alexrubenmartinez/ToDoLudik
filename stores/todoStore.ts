@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-require('dotenv').config()
 
 interface Task {
   _id: string
@@ -19,7 +18,7 @@ let BASE_URL = process.env.NUXT_PUBLIC_API_BASE_URL
 
 export const useTodoStore = defineStore('todo', () => {
   const tareas = ref<Task[]>([])
-  const apiUrl = BASE_URL
+  const apiUrl = 'https://todoludikback.onrender.com'
 
   const getToken = () => {
     return localStorage.getItem('token')
