@@ -15,84 +15,59 @@ interface ApiResponse {
 }
 
 export const useTodoStore = defineStore('todo', () => {
-  // Explicitly type the ref with Task array
-  const tareas = ref<Task[]>([])
-
+  const tareas = ref<Task[]>([]) // Lista de tareas
   const apiUrl = 'http://localhost:3001' // Cambia a tu URL de backend
 
-  // Fetch all tasks
+  // Obtener todas las tareas
   async function fetchTareas() {
     try {
-      // Especifica el tipo ApiResponse para la respuesta de $fetch
-      const { data } = await $fetch<ApiResponse>(`${apiUrl}/tarea/obtenerTareas`)
-      // Verifica que data y data.data existan y sean un array
-      if (data && Array.isArray(data)) {
-        tareas.value = data // Aquí tareas es de tipo Task[]
-      } else {
-        console.warn('La respuesta de la API no contiene un array de tareas.')
-      }
+      const response: ApiResponse = await $fetch(`${apiUrl}/tarea/obtenerTareas`)
+      tareas.value = response.data // Asignación reactiva
     } catch (error) {
       console.error('Error fetching tasks:', error)
     }
   }
 
-  // Fetch task by ID
+  // Obtener una tarea por ID
   async function fetchTarea(id: string): Promise<Task | null> {
     try {
-      const { data, error } = await useFetch(`${apiUrl}/tarea/obtenerTarea/${id}`)
-
-      if (error.value) {
-        throw new Error(error.value.message)
-      }
-
-      return data.value as Task | null
+      const response: { data: Task } = await $fetch(`${apiUrl}/tarea/obtenerTarea/${id}`)
+      return response.data || null
     } catch (error) {
       console.error(`Error fetching task ${id}:`, error)
       return null
     }
   }
 
-  // Add a new task
+  // Crear una nueva tarea
   async function addTarea(titulo: string, descripcion?: string) {
     try {
-      const { data, error } = await useFetch(`${apiUrl}/tarea/crearTarea`, {
+      const response: { data: Task } = await $fetch(`${apiUrl}/tarea/crearTarea`, {
         method: 'POST',
         body: { titulo, descripcion },
       })
 
-      if (error.value) {
-        throw new Error(error.value.message)
-      }
-
-      if (data.value) {
-        tareas.value.push(data.value as Task)
+      if (response.data) {
+        tareas.value.push(response.data)
       }
     } catch (error) {
       console.error('Error adding task:', error)
     }
   }
 
-  // Update an existing task
+  // Actualizar una tarea existente
   async function updateTarea(id: string, titulo: string, estado: string, descripcion?: string) {
     try {
-      const { data, error } = await useFetch(`${apiUrl}/tarea/actualizarTarea/${id}`, {
+      const response: { data: Task } = await $fetch(`${apiUrl}/tarea/actualizarTarea/${id}`, {
         method: 'PUT',
-        body: {
-          titulo,
-          descripcion,
-          estado,
-        },
+        body: { titulo, descripcion, estado },
       })
 
-      if (error.value) {
-        throw new Error(error.value.message)
-      }
-
-      // Type assertion and null check
-      if (data.value) {
+      const updatedTask = response.data
+      if (updatedTask) {
         const index = tareas.value.findIndex((tarea) => tarea._id === id)
         if (index !== -1) {
-          tareas.value[index] = data.value as Task
+          tareas.value[index] = updatedTask
         }
       }
     } catch (error) {
@@ -100,18 +75,10 @@ export const useTodoStore = defineStore('todo', () => {
     }
   }
 
-  // Delete a task
+  // Eliminar una tarea
   async function deleteTarea(id: string) {
-    console.log(id)
     try {
-      const { error } = await useFetch(`${apiUrl}/tarea/eliminarTarea/${id}`, {
-        method: 'DELETE',
-      })
-
-      if (error.value) {
-        throw new Error(error.value.message)
-      }
-
+      await $fetch(`${apiUrl}/tarea/eliminarTarea/${id}`, { method: 'DELETE' })
       tareas.value = tareas.value.filter((tarea) => tarea._id !== id)
     } catch (error) {
       console.error(`Error deleting task ${id}:`, error)
