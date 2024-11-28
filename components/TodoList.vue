@@ -1,9 +1,9 @@
 <template>
-  <div class="todo-list">
-    <h2>Lista de Tareas</h2>
+  <div class="todo-list w-full rounded-xl shadow h-full lg:min-h-96 p-4">
+    <h2 class="text-center text-2xl font-bold py-2">Lista de Tareas</h2>
     <div v-if="tareas.length === 0">No hay tareas disponibles.</div>
-    <div class="flex flex-col space-y-3 gap-3 bg-blue-200" v-for="tarea in tareas" :key="tarea._id">
-      <TodoItem :tarea="tarea" />
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <TodoItem v-for="tarea in tareas" :key="tarea._id" :tarea="tarea" />
     </div>
   </div>
 </template>

@@ -1,11 +1,9 @@
 <!-- components/AddTodoForm.vue -->
 <template>
-  <form class="flex gap-3 border-2 border-black rounded-md p-4" @submit.prevent="addTarea">
-    <input class="border-2 border-black rounded-md p-2" v-model="titulo" type="text" placeholder="Título" required />
-    <textarea class="border-2 border-black rounded-md p-2" v-model="descripcion" placeholder="Descripción"></textarea>
-    <button class="bg-blue-500 text-white p-2 rounded-md" type="submit">Añadir Tarea</button>
-    <!--  <textarea v-model="descripcion" placeholder="Descripción"></textarea>
-    <button type="submit">Añadir Tarea</button> -->
+  <form class="flex flex-col gap-y-1 md:flex-row gap-3 rounded-md p-4 bg-white" @submit.prevent="addTarea">
+    <input class="border-2 rounded-md px-2 bg-blue-50" v-model="titulo" type="text" placeholder="Tarea" required />
+    <textarea class="border-2 rounded-md px-2 w-full bg-blue-50" v-model="descripcion" placeholder="Descripción de la tarea"></textarea>
+    <button class="bg-green-600 text-white px-2 rounded-md text-nowrap text-sm" type="submit">Añadir Tarea</button>
   </form>
 </template>
 
