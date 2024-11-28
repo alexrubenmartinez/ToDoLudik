@@ -3,6 +3,7 @@
     <div class="flex flex-col w-full h-24">
       <h3 class="font-bold text-lg">{{ tarea.titulo }}</h3>
       <p class="text-sm">{{ tarea.descripcion }}</p>
+
       <p class="text-sm mt-auto"><strong>Estado:</strong> {{ tarea.estado }}</p>
     </div>
     <div class="flex flex-col items-center justify-center gap-2">

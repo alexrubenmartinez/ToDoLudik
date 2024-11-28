@@ -12,12 +12,21 @@
           <textarea id="descripcion" v-model="editableTask.descripcion" class="mt-1 block w-full border rounded px-3 py-2"></textarea>
         </div>
         <div class="mb-4">
-          <label for="estado" class="block text-sm font-medium">Estado</label>
-          <select id="estado" v-model="editableTask.estado" class="mt-1 block w-full border rounded px-3 py-2">
-            <option value="pendiente">Pendiente</option>
-            <option value="en_progreso">En Progreso</option>
-            <option value="completado">Completado</option>
-          </select>
+          <label class="block text-sm font-medium">Estado</label>
+          <div class="flex space-x-4">
+            <label class="flex items-center">
+              <input type="radio" v-model="editableTask.estado" value="Pendiente" class="mr-2" />
+              Pendiente
+            </label>
+            <label class="flex items-center">
+              <input type="radio" v-model="editableTask.estado" value="En proceso" class="mr-2" />
+              En proceso
+            </label>
+            <label class="flex items-center">
+              <input type="radio" v-model="editableTask.estado" value="Completada" class="mr-2" />
+              Completada
+            </label>
+          </div>
         </div>
         <div class="flex justify-end space-x-3">
           <button type="button" class="px-4 py-2 bg-gray-300 rounded" @click="closeModal">Cancelar</button>
@@ -58,7 +67,7 @@ function closeModal() {
 // Function to update the task
 async function updateTask() {
   try {
-    await todoStore.updateTarea(editableTask._id, editableTask.titulo, editableTask.estado ,editableTask.descripcion)
+    await todoStore.updateTarea(editableTask._id, editableTask.titulo, editableTask.estado, editableTask.descripcion)
     alert('Tarea actualizada correctamente')
     closeModal()
   } catch (error) {

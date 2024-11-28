@@ -16,7 +16,9 @@ onMounted(() => {
     <h1 class="text-3xl font-bold mb-4">Mis Tareas</h1>
     <AddTodoForm />
     <div class="w-full flex flex-col md:flex-row gap-4">
-      <div class="w-full">a</div>
+      <div class="w-full">
+        
+      </div>
       <div class="w-full"><TodoList /></div>
     </div>
   </div>
